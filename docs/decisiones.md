@@ -12,10 +12,10 @@
   Obras/ratings ~0,6-0,7 en 2020-2025 y 0,97 en 2026. 2020 y 2023
   tienen forma normal.
 - Proceso sostenido: 13-jun a 7-sep de 2026 (75 días marcados). En julio
-  y agosto, ~400 mil ratings, 98% con nota 4, casi uno por obra y
-  ~12 mil por día. Origen desconocido.
+  y agosto, ~400 mil ratings, 98% con nota 4 y casi uno por obra, con
+  picos de ~12 mil por día. Origen desconocido.
 - Ráfaga: 18-20 de mayo de 2026 (3.915 ratings el día 20, 97,1% nota 4).
-- Septiembre vuelve a ~30-40% de nota 4.
+- Desde la semana del 7 de septiembre vuelve a ~30-40% de nota 4.
 
 **Regla de exclusión:** un día es anómalo si tiene al menos 100 ratings
 y más de 50% de nota 4. Los días marcados separados por 7 días o menos
@@ -62,23 +62,29 @@ el % de nota 4 vuelve a ~30%.
   como indicador relativo, no como medida del mercado.
 
 ## 5. Fuentes y condiciones
-Base (licencias abiertas):
+Base (uso abierto):
 - Wikidata: CC0 (verificado en la página de licencias de Wikimedia).
-- Open Library: catálogo en dominio público / CC0 (según su FAQ). Pendiente:
-  confirmar la licencia de los dumps de ratings y reading log en su
-  página de Licensing.
+- Open Library: La página de Licensing del Developer Center dice que el
+  Internet Archive no reclama nuevos derechos sobre el material de la base,
+  con advertencia de posibles derechos preexistentes en algunas
+  contribuciones y jurisdicciones. No nombra una licencia formal, no
+  menciona los dumps de ratings/reading log ni impone restricciones de ML.
+  Los dumps no traen identificadores de usuario. Riesgo bajo. 
+  Pendiente opcional: leer los Terms of Service del Internet Archive.
+  Reglas de uso de la API (oct-2026): para volumen usar los dumps; si se
+  usa la API, identificarse con User-Agent y correo, máximo 3 req/s,
+  guardar en caché, sin scraping de HTML ni cientos de consultas por
+  libro. Sin mención de ML.
 - Wikimedia pageviews: datasets de Analytics en CC0 salvo indicación
   contraria. Pendiente: confirmar los términos específicos de la API.
-
 Complemento:
 - IMDb (datasets gratuitos): solo uso personal y no comercial, sin publicar
   ni crear bases de datos de películas fuera del uso individual; atribución
   con la frase exigida. El artículo de ayuda no menciona ML; no leí la
   licencia completa. Uso privado y local; el modelo debe funcionar sin IMDb.
 
-Pendientes de revisar: NYT Books API (términos oficiales) y Google Books API.
-
-Descartadas:
+  Pendientes de revisar: NYT Books API (términos oficiales) y Google Books API.
+  Descartadas:
 - TMDB: prohíbe usar su contenido en aplicaciones de ML y limita la caché
   a 6 meses. Datos y claves eliminados del proyecto.
 - Goodreads: sin API oficial; el scraping contradice las reglas del proyecto.
