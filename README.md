@@ -11,7 +11,7 @@ tendencia audiovisual?
 ## Fuentes de datos
 
 - **Open Library** (dumps mensuales, consultados con DuckDB)
-- **TMDB** (API)
+- **Wikimedia** (API de pageviews)
 - **Wikidata** (consultas SPARQL)
 - **IMDb** (datasets no comerciales, datasets.imdbws.com)
 
@@ -36,5 +36,4 @@ Copia `.env.example` a `.env` y completa tus claves.
 
 ## Atribución
 
-This product uses the TMDB API but is not endorsed or certified by TMDB.
-Los datos de IMDb se usan bajo su licencia no comercial.
+Information courtesy of IMDb (https://www.imdb.com). Used with permission.
