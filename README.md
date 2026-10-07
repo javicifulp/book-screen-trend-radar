@@ -34,6 +34,12 @@ Fase 0: Definición (fuentes, alcance y criterios de éxito).
 
 Copia `.env.example` a `.env` y completa tus claves.
 
-## Atribución
+## Fuentes y atribución
 
-Information courtesy of IMDb (https://www.imdb.com). Used with permission.
+- **Open Library** (proyecto del Internet Archive): dumps de ratings y del
+  catálogo de obras, descargados desde https://openlibrary.org/developers/dumps
+  (versión del 2026-09-30). Uso limitado a fines académicos y de investigación,
+  según los términos del Internet Archive.
+- **Wikidata**: datos de adaptaciones obtenidos con SPARQL desde
+  https://query.wikidata.org (licencia CC0).
+- **IMDb**: Information courtesy of IMDb (https://www.imdb.com). Used with permission.
