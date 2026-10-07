@@ -12,12 +12,24 @@ con.sql(f"""
 """).show()
 
 con.sql(f"""
-    SELECT work_key, count(*) AS n, avg(rating) AS promedio
+    SELECT min(date) AS primera ,max (date) AS ultima
     FROM read_csv('{RATINGS}',
         delim='\\t', header=false, columns={COLS})
-    WHERE work_key IN ('/works/OL24829519W', '/works/OL34315810W')
-    GROUP BY work_key
 """).show()
+
+# con.sql(f"""
+#     SELECT * FROM read_csv('{RATINGS}',
+#         delim='\\t', header=false, columns={COLS})
+#     LIMIT 5
+# """).show()
+
+# con.sql(f"""
+#     SELECT work_key, count(*) AS n, avg(rating) AS promedio
+#     FROM read_csv('{RATINGS}',
+#         delim='\\t', header=false, columns={COLS})
+#     WHERE work_key IN ('/works/OL24829519W', '/works/OL34315810W')
+#     GROUP BY work_key
+# """).show()
 
 # con.sql(f"""
 #     SELECT substr(date, 1, 4) AS anio, count(*) AS n
