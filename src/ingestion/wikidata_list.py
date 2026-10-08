@@ -22,7 +22,7 @@ RAW_DIR.mkdir(parents=True, exist_ok=True)
 
 # película, fecha, ID de Open Library e ID de IMDb
 QUERY = """
-SELECT ?adapt ?date ?OL ?IMDb ?precision
+SELECT ?adapt ?date ?OL ?IMDb ?precision ?work
 WHERE {
   ?adapt wdt:P31 wd:Q11424 ;
          p:P577/psv:P577 ?nodo ;
@@ -45,19 +45,31 @@ print("año  filas peliculas")
 for year in range(2018, 2027):
 
     query = QUERY.replace("{YEAR}", str(year))
+    data = None
 
-    try:
-        r = requests.get(
-            URL,
-            params={"query": query, "format": "json"},
-            headers=HEADERS,
-            timeout=70
-        )
-        r.raise_for_status()
-        data = r.json()
+    #Si falla, entraal except imprime error y espera 30 seg
+    #Si el siguiente intento sale bien, data queda con datos y hace break
+    #Si llega a "if data is None" y datda tiene datos, NO entra al continue
+    #Sigue normal..cuenta pelis y guarda archivo del año
+
+    for intento in range(1,4):
+        try:
+            r = requests.get(
+                URL,
+                params={"query": query, "format": "json"},
+                headers=HEADERS,
+                timeout=70
+            )
+            r.raise_for_status()
+            data = r.json()
+            break 
         
-    except requests.RequestException as e:
-        print(year, "falló:", e)
+        except requests.RequestException as e:
+            print(year, "intento",intento, "falló:", e)
+            time.sleep(30)
+    
+    #Se revisa una e para ver si falló los 3 intentos
+    if data is None:
         continue
 
     
