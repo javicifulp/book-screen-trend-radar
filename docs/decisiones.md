@@ -51,6 +51,15 @@ el % de nota 4 vuelve a ~30%.
 - Wikidata puede devolver código 200 con el JSON cortado: el script lo
   informa y sigue con el siguiente año.
 - Exigir IMDb deja fuera películas sin ese ID.
+- Riesgo detectado: min() sin considerar la precisión elige la fecha falsa.
+  Caso Q2095178: tiene 2018-01-01 (precisión 9, solo año) y 2018-09-27
+  (precisión 11, día exacto); min() elige 2018-01-01. Pendiente: definir
+  cómo elegir la fecha según la precisión.
+- 719 filas -> 662 películas; 151 apariciones repetidas entre años
+-Wikidata a veces corta la respuesta (ya pasó en 2022 y 2024).
+- Hoy 08/10/2026 un fallo obliga a repetir toda la descarga para mantener un solo stamp.
+- Pendiente para el pipeline: reintentos automáticos por año.
+- Año de adaptación = min(year(date)), válido con cualquier precisión. Fecha exacta (precisión 11): pendiente para Analytics."
 
 **Duplicados**
 - Hay aprox. 2 filas por película (rango 1,8-2,5 según el año) por varias
@@ -61,6 +70,8 @@ el % de nota 4 vuelve a ~30%.
   (GROUP BY + min() sobre la fecha). Riesgo conocido: filtrar por año en
   la consulta puede falsear la fecha mínima. Alternativa pendiente:
   calcular el mínimo en la propia consulta SPARQL.
+  -1719 filas → 662 películas distintas (2018-2026, con OL e IMDb).
+  -La suma de distintas por año da 813: 151 apariciones son la misma película en más de un año.
 
 **Fechas de estreno (P577)**
 - Tienen precisión variable (9 = año, 10 = mes, 11 = día). Caso
@@ -90,8 +101,34 @@ el % de nota 4 vuelve a ~30%.
 - Decisión provisional: la clave del libro es el ítem de Wikidata del
   origen (`?work`), no el ID de Open Library; los OL IDs son atributos.
 - Q63994491: sus 2 claves de Open Library (OL24829519W, OL34315810W) tienen
-  0 ratings en el dump. Decisión: filtro de calidad por mínimo de ratings;
-  umbral por definir tras cruzar la lista completa de Wikidata con ratings.
+  0 ratings en el dump. Decisión: filtro de calidad por mínimo de ratings.
+ 
+**Resultado del cruce (oct-2026)**
+- 1719 filas → 662 películas → 619 con clave W → 584 libros (agrupados por `work`).
+- 43 películas (6,5 %) quedan fuera por no tener clave W; en la muestra revisada
+  son claves de edición (M). Recuperables con el dump de ediciones (pendiente).
+- Ratings limpios: 608.849 de 1.060.973 (se excluyen 452.124 de los 25 bloques).
+- Ratings limpios por libro: 0 → 241 (41 %); 1-9 → 182 (31 %);
+  10-49 → 94 (16 %); 50 o más → 67 (11,5 %).
+
+**Decisión de umbral:** el rating de un libro se considera confiable con
+≥ 10 ratings limpios (161 libros). El umbral no excluye libros: los 584 se
+mantienen, y bajo 10 el rating queda como "sin dato confiable".
+
+**Implicancia:** los ratings de Open Library no alcanzan como señal principal.
+Probablemente la principal será pageviews de Wikimedia (por confirmar).
+
+**Trampa del JOIN:** unir con una tabla que tiene filas repetidas infla los
+conteos sin dar error (un libro con dos películas contaba sus ratings dos veces).
+Solución: `SELECT DISTINCT work, work_key` antes de unir.
+
+**Año de adaptación:** min(year(date)), válido con cualquier precisión.
+Fecha exacta (precisión 11): pendiente para Analytics.
+
+**Hipótesis "rating alto → más probable que se adapte":** no se puede comprobar
+solo con libros adaptados (falta un grupo de comparación) y tiene riesgo de
+leakage (muchos ratings son posteriores al estreno). Llevarla a la definición
+de "tendencia" y de qué se predice.
 
 ## 5. Fotos del día y series de tiempo
 - IMDb (ratings, votos) es una foto del día de la descarga, sin historia.
@@ -162,7 +199,6 @@ el % de nota 4 vuelve a ~30%.
 - Medir los tipos de origen en P144 (sección 3).
 - Decidir si el mínimo de fecha se calcula en SPARQL (sección 3).
 - Medir la cobertura de P648 (sección 4).
-- Definir el umbral mínimo de ratings (sección 4).
 - Decidir si se guardan copias periódicas de IMDb (sección 5).
 - Confirmar términos de la API de pageviews (sección 6).
 - Revisar NYT Books API y Google Books API (sección 6).
