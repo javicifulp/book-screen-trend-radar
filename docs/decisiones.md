@@ -57,7 +57,7 @@ el % de nota 4 vuelve a ~30%.
   Caso Q2095178: tiene 2018-01-01 (precisión 9, solo año) y 2018-09-27
   (precisión 11, día exacto); min() elige 2018-01-01. Pendiente: definir
   cómo elegir la fecha según la precisión.
-- 719 filas -> 662 películas; 151 apariciones repetidas entre años
+- 1719 filas -> 662 películas; 151 apariciones repetidas entre años
 -Wikidata a veces corta la respuesta (ya pasó en 2022 y 2024).
 - Hoy 08/10/2026 un fallo obliga a repetir toda la descarga para mantener un solo stamp.
 - Pendiente para el pipeline: reintentos automáticos por año.
