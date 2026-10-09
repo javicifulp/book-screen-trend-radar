@@ -1,5 +1,7 @@
 # Decisiones de Fase 0
 
+Definiciones de Fase 0: ver docs/definiciones.md
+
 ## 1. Ventana temporal de los datos
 - Los ratings de Open Library empiezan en junio de 2018. Solo se pueden
   estudiar adaptaciones estrenadas desde 2018.
