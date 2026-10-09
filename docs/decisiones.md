@@ -205,3 +205,6 @@ de "tendencia" y de qué se predice.
 - Confirmar términos de la API de pageviews (sección 6).
 - Revisar NYT Books API y Google Books API (sección 6).
 - Crear la sección "Fuentes y atribución" en el README (sección 6).
+- Conseguir libros no adaptados como grupo de comparación (definiciones, parte 2).
+- Probar la API de pageviews de Wikimedia (definiciones, parte 1).
+- Medir el tiempo de publicación/anuncio a estreno para validar N = 5.
