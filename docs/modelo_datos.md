@@ -2,6 +2,9 @@
 
 Base: PostgreSQL. Los datos llegan ya limpios desde DuckDB.
 Clave del libro: ítem de Wikidata del origen (`work`), decidido en la semana 1.
+Las claves de cada fuente (ol_key, titulo_articulo) se traducen a `work`
+en la transformación, porque un libro puede tener varias. Así todas las
+tablas se unen por `work`. ratings_ol.work = pageviews.work = libros.work
 
 ## Tablas del núcleo
 
