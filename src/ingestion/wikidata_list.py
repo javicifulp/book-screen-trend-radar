@@ -18,7 +18,11 @@ HEADERS = {
 }
 
 RAW_DIR = Path("data/raw/wikidata")
-RAW_DIR.mkdir(parents=True, exist_ok=True)
+stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+#Ruta de carpeta
+RUN_DIR = RAW_DIR/stamp
+RUN_DIR.mkdir(parents=True, exist_ok=True)
 
 # película, fecha, ID de Open Library e ID de IMDb
 QUERY = """
@@ -37,9 +41,6 @@ WHERE {
   FILTER(YEAR(?date) = {YEAR})
 }
 """
-
-stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-
 print("año  filas peliculas")
 
 for year in range(2018, 2027):
@@ -68,7 +69,7 @@ for year in range(2018, 2027):
             print(year, "intento",intento, "falló:", e)
             time.sleep(30)
     
-    #Se revisa una e para ver si falló los 3 intentos
+    #Se revisa para ver si falló los 3 intentos
     if data is None:
         continue
 
@@ -81,8 +82,8 @@ for year in range(2018, 2027):
         
     cantidad_peliculas= len(peliculas)
 
-    # Guardar respuesta completa
-    (RAW_DIR / f"list_{year}_{stamp}.json").write_text(
+    # Guardar respuesta como list_{year}.json dentro de RUN_DIR
+    (RUN_DIR / f"list_{year}.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2),
         encoding="utf-8"
     )
