@@ -17,8 +17,12 @@ HEADERS = {
     )
 }
 
-RAW_DIR = Path("data/raw/wikidata")
+ROOT = Path(__file__).resolve().parents[2]
+RAW_DIR = ROOT/"data/raw/wikidata"
 stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+print(RAW_DIR)
+exit()  # temporal: detiene el script aquí
 
 #Ruta de carpeta
 RUN_DIR = RAW_DIR/stamp
