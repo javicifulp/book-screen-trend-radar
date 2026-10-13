@@ -177,7 +177,7 @@ de "tendencia" y de qué se predice.
   publicar ni crear bases de datos de películas fuera del uso individual;
   atribución con la frase exigida. El artículo de ayuda no menciona ML; no
   leí la licencia completa. Uso privado y local; el modelo debe funcionar
-  sin IMDb.
+  sin IMDb. Se pueden conservar copias locales, pero no se deben subir los datos a GitHub.
 
 ### Pendientes de revisar
 - NYT Books API (términos oficiales).
