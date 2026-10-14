@@ -169,6 +169,9 @@ de "tendencia" y de qué se predice.
     usa la API, identificarse con User-Agent y correo, máximo 3 req/s,
     guardar en caché, sin scraping de HTML ni cientos de consultas por
     libro. Sin mención de ML.
+  - Content-Length: 4073320823 bytes ≈ 4,1 GB. Antes de descargar revisar si se tienen al menos ~5 GB libres en disco.
+
+
 - **Wikimedia pageviews:** datasets de Analytics en CC0 salvo indicación
   contraria. Pendiente: confirmar los términos específicos de la API.
 
