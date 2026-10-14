@@ -235,3 +235,4 @@ de "tendencia" y de qué se predice.
   un archivo corrupto, no un dato. Confirma la necesidad del `.part`.
 - Deuda técnica: si una descarga se corta, el `.part` queda en su
   carpeta; limpieza manual por ahora.
+- Tiempo de descarga real: de 19:25:33 a 20:22:04 = ~57 min.
