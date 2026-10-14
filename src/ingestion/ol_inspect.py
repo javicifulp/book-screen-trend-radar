@@ -1,6 +1,6 @@
 import duckdb
 
-RATINGS = "data/raw/openlibrary/ol_dump_ratings_latest.txt.gz"
+RATINGS = "data/raw/openlibrary/20261014T205331Z/ol_dump_ratings_2026-09-30.txt.gz"
 COLS = "{'work_key':'VARCHAR','edition_key':'VARCHAR','rating':'INTEGER','date':'VARCHAR'}"
 
 con = duckdb.connect()
