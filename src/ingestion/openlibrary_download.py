@@ -19,6 +19,7 @@ print(r.url)
 
 #Sacar nombre real
 nombre = Path(r.url).name
+url_version = r.url
 print(nombre)
 
 #Buscar si ya existe
@@ -34,7 +35,7 @@ else:
     destino = RUN_DIR/nombre
     print(destino)
 
-    r = requests.get(URL_RATINGS,stream= True,timeout=30)
+    r = requests.get(url_version,stream= True,timeout=30)
     r.raise_for_status()
 
     with open(destino, 'wb') as f:
