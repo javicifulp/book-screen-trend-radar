@@ -10,12 +10,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 URL = "https://query.wikidata.org/sparql"
-HEADERS = {
-    "User-Agent": os.getenv(
-        "WIKIDATA_USER_AGENT",
-        "BookScreenTrendRadar/0.1"
-    )
-}
+#Leer el User-Agent desde el env. (sin valor por defecto)
+user_agent=os.getenv("WIKIDATA_USER_AGENT")
+
+#Si no existe, detener el script con un error claro
+if user_agent is None:
+    raise RuntimeError("Falta WIKIDATA_USER_AGENT en el archio .env")
+                     
+HEADERS = {"User-Agent": user_agent}
 
 ROOT = Path(__file__).resolve().parents[2]
 RAW_DIR = ROOT/"data/raw/wikidata"
@@ -25,9 +27,9 @@ stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
 RUN_DIR = RAW_DIR/stamp
 RUN_DIR.mkdir(parents=True, exist_ok=True)
 
-# película, fecha, ID de Open Library e ID de IMDb
+# película, fecha, ID de Open Library e ID de IMDb y títulos de Wikipedia (en/es).
 QUERY = """
-SELECT ?adapt ?date ?OL ?IMDb ?precision ?work
+SELECT ?adapt ?date ?OL ?IMDb ?precision ?work ?titulo_en ?titulo_es
 WHERE {
   ?adapt wdt:P31 wd:Q11424 ;
          p:P577/psv:P577 ?nodo ;
@@ -38,6 +40,18 @@ WHERE {
         wikibase:timePrecision ?precision .
 
   ?work wdt:P648 ?OL .
+
+  OPTIONAL{
+  ?art_en schema:about ?work .
+  ?art_en schema:isPartOf <https://en.wikipedia.org/>.
+  ?art_en schema:name ?titulo_en .
+  }
+    # Bloque 2: artículo en español (si existe)
+  OPTIONAL {
+    ?art_es schema:about ?work .
+    ?art_es schema:isPartOf <https://es.wikipedia.org/> .
+    ?art_es schema:name ?titulo_es .
+  }
 
   FILTER(YEAR(?date) = {YEAR})
 }
